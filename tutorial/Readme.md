@@ -10,7 +10,7 @@ Here are some references:
 - [Socket Programming in C++](https://www.geeksforgeeks.org/socket-programming-cc/)
 - [A simple chat application](https://github.com/cjchirag7/chatroom-cpp)
 
-## 2. Learn about threading in C++
+## 2. Learn about Multi-Threading in C++
 
 This will take some time to understand but also is very good and important to know for this project.
 
@@ -19,7 +19,7 @@ Here are some references:
 
 ## 3. Create a simple multithreded chat application in cpp
 
-- [ ] CChat
+- [X] [CChat]()
 
 ## 5. Learn about file management in C++
 
