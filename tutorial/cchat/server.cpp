@@ -5,7 +5,7 @@
 #include<arpa/inet.h>
 #include<unistd.h>
 
-#define PORT 5001
+#define PORT 5002
 using namespace std;
 
 void handle_client(int client_socket){
@@ -22,6 +22,15 @@ void handle_client(int client_socket){
     close(client_socket);
 }
 
+void send_message(int client_socket){
+    char buffer[1024];
+    while(true){
+        cout << "Enter message: ";
+        string message;
+        getline(cin, message);
+        send(client_socket, message.c_str(), message.size() + 1, 0);
+    }
+}
 
 int main(){
     int server_socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -36,11 +45,17 @@ int main(){
     listen(server_socket, 5);
 
     int address_length = sizeof(server_address);
-    while(true){
-        int client_socket = accept(server_socket, (struct sockaddr*)&server_address, (socklen_t*)&address_length);
-        thread t(handle_client, client_socket);
-        t.detach();
-    }
+    int client_socket = accept(server_socket, (struct sockaddr*)&server_address, (socklen_t*)&address_length);
+
+    thread t1(handle_client, client_socket);
+    thread t2(send_message, client_socket);
+    t1.join();
+    t2.join();
+    // while(true){
+    //     int client_socket = accept(server_socket, (struct sockaddr*)&server_address, (socklen_t*)&address_length);
+    //     thread t(handle_client, client_socket);
+    //     t.detach();
+    // }
     
     return 0;
 }
